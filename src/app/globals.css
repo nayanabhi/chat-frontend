@@ -1,13 +1,17 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0b8c3d;
+  --foreground: #f01212;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #4d464c;
     --foreground: #ededed;
   }
+}
+
+.custom-typography {
+  color: #58665e;
 }
 
 html,

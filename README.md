@@ -32,6 +32,12 @@ This service is designed to be extensible. You can easily add:
 - 🕒 **Message Timestamps** – Know when messages were sent
 
 
+## Screenshots
+
+<img width="1356" alt="Screenshot 2025-05-28 at 1 00 45 AM" src="https://github.com/user-attachments/assets/f5539f80-1991-46d8-b446-baba5ef9e2f3" />
+<img width="1418" alt="Screenshot 2025-05-28 at 1 01 24 AM" src="https://github.com/user-attachments/assets/eae8fd61-2edb-466c-a039-58064ca12fcd" />
+
+
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 

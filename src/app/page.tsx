@@ -43,6 +43,7 @@ export default function LoginPage() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           margin="normal"
+          autoComplete="off"
         />
         <TextField
           fullWidth

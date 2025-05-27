@@ -17,8 +17,10 @@ import {
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import socket from "@/socket";
+import apiRequest from "@/utils/apiCalls";
+import { HttpMethod } from "@/utils/httpMethods";
+import { useRouter } from "next/navigation";
 
 interface User {
   id: number;
@@ -33,6 +35,7 @@ interface MessageData {
 }
 
 export default function ChatPage() {
+  const router = useRouter();
   const [users, setUsers] = useState<User[]>([]);
   const [messages, setMessages] = useState<{ text: string; sender: string }[]>(
     []
@@ -40,15 +43,11 @@ export default function ChatPage() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/${process.env.NEXT_PUBLIC_VERSION}/user`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-          }
-        );
-        setUsers(response.data);
+        const response = await apiRequest({
+          method: HttpMethod.GET,
+          url: "/user",
+        });
+        setUsers(response);
       } catch (error) {
         console.error("Failed to fetch users:", error);
       }
@@ -59,11 +58,10 @@ export default function ChatPage() {
   const [selectedReceiver, setSelectedReceiver] = useState<User | null>(null);
 
   useEffect(() => {
-    console.log(436456546, '546456456546');
     socket.connect();
 
     socket.on("connect", () => {
-        console.log("User connected:", socket.id);
+      console.log("User connected:", socket.id);
       console.log("Connected to WebSocket server");
     });
 
@@ -94,46 +92,15 @@ export default function ChatPage() {
     };
   }, [selectedReceiver]);
 
-  //   useEffect(() => {
-  //     socket.connect();
-
-  //     socket.on("connect", () => {
-  //       console.log("Connected to WebSocket server");
-  //     });
-
-  //     socket.on("receiveMessage", (messageData: MessageData) => {
-  //       const { from, to, message } = messageData;
-  //       console.log("Received message", messageData);
-  //       if (from == `${selectedReceiver?.id}`) {
-  //         setMessages((prev) => [
-  //           ...prev,
-  //           {
-  //             text: message,
-  //             sender: selectedReceiver ? selectedReceiver.fullName : "",
-  //           },
-  //         ]);
-  //       }
-  //     });
-
-  //     return () => {
-  //       socket.off("receiveMessage");
-  //       socket.disconnect();
-  //     };
-  //   }, [selectedReceiver]);
 
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        console.log(435345435, selectedReceiver);
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/${process.env.NEXT_PUBLIC_VERSION}/message/history/${selectedReceiver?.id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-          }
-        );
-        setMessages(response.data);
+        const response = await apiRequest({
+          method: HttpMethod.GET,
+          url: `/message/history/${selectedReceiver?.id}`,
+        });
+        setMessages(response);
       } catch (error) {
         console.error("Failed to fetch users:", error);
       }
@@ -141,9 +108,6 @@ export default function ChatPage() {
     fetchMessages();
   }, [selectedReceiver]);
 
-  //   useEffect(() => {
-  //     console.log("Messages updated:", messages);
-  //   }, [messages]);
   const [input, setInput] = useState("");
 
   const handleSend = () => {
@@ -160,6 +124,14 @@ export default function ChatPage() {
     setInput("");
   };
 
+  const handleLogout = async () => {
+    await apiRequest({
+      method: HttpMethod.POST,
+      url: `/auth/logout`,
+    });
+    router.push("/");
+  };
+
   return (
     <Box
       display="flex"
@@ -168,9 +140,19 @@ export default function ChatPage() {
       p={2}
       bgcolor="#f9f9f9"
     >
-      <Typography variant="h5" mb={2} className="custom-typography">
-        Chat Room
-      </Typography>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={2}
+      >
+        <Typography variant="h5" className="custom-typography">
+          Chat Room
+        </Typography>
+        <IconButton onClick={handleLogout} color="error">
+          <Typography variant="body2">Logout</Typography>
+        </IconButton>
+      </Box>
 
       {/* Receiver Selection */}
       <FormControl fullWidth margin="normal">

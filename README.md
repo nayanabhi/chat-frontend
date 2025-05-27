@@ -1,3 +1,38 @@
+# 💬 ChatConnect
+
+Welcome to **ChatConnect** – a real-time chat application built for seamless communication! 🚀 Whether you're looking to connect with friends, collaborate with a team, or build the next-gen messaging experience, ChatConnect has you covered. 🌐
+
+---
+
+## ✨ Features
+
+- ⚡ **Real-time Messaging** – Instant communication powered by WebSockets
+- 🛡️ **Authentication** – Secure login with JWT
+- 📱 **Responsive Design** – Mobile and desktop-friendly interface
+
+
+---
+
+## 🛠️ Tech Stack
+
+| Frontend | Backend | Database | Realtime | Authentication |
+|----------|---------|----------|----------|----------------|
+| Next.js ⚛️ | Nest.js 🟩 | PostgreSQL 🍃 | Socket.IO 📡 | JWT 🔐 |
+
+---
+
+## 📚 Extendable Features
+
+This service is designed to be extensible. You can easily add:
+
+- 🖼️ **Media Support** – Share images, emojis, and files
+- 📬 **Notifications** – Get alerted when new messages arrive
+- 🎨 **Theme Switcher** – Toggle between light and dark mode
+- 🧑‍🤝‍🧑 **Group & Private Chats** – Create groups or chat one-on-one
+- 🕒 **Message Timestamps** – Know when messages were sent
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

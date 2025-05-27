@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, TextField, Typography, Link } from "@mui/material";
 import { useState } from "react";
 import apiRequest from "@/utils/apiCalls";
 import { HttpMethod } from "@/utils/httpMethods";
@@ -55,6 +55,11 @@ export default function LoginPage() {
         <Button variant="contained" fullWidth onClick={handleLogin}>
           Enter Chat
         </Button>
+        <Box mt={2} display="flex" justifyContent="center">
+          <Link href="/signup" variant="body2">
+            Don&apos;t have an account? Sign up
+          </Link>
+        </Box>
       </Box>
     </Container>
   );
